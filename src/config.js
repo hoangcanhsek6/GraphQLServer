@@ -8,8 +8,8 @@ const config = {
     APP_URL: 'http://localhost',
     GQL_URL_DIR: 'graphql',
     // Database config
-    DB_URL: 'mongodb://localhost:27017',
-    DB_NAME: 'graphql-login'
+    DB_URL: 'mongodb://127.0.0.1:27017',
+    DB_NAME: 'Wizeline'
 };
 
 module.exports = config

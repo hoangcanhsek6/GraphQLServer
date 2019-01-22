@@ -18,18 +18,19 @@ class Loader extends events.EventEmitter {
 
     init() {
         const self = this;
-        mongoose.connect(config.DB_URL + '/' + config.DB_NAME);
+        mongoose.set('useCreateIndex', true);
+        mongoose.connect(config.DB_URL + '/' + config.DB_NAME, { useNewUrlParser: true });
         mongoose.Promise = Promise;
         app.use(bodyParser.json());
         app.use(
             session({
                 secret: 'keyboard cat',
                 saveUninitialized: true,
-                resave: true,
+                resave: true, 
                 store: new mongoStore({ mongooseConnection: mongoose.connection})
             })
         );
-        app.use(passport.initialized());
+        app.use(passport.initialize());
         app.use(passport.session());
         app.use(
             '/' + config.GQL_URL_DIR,
@@ -38,6 +39,7 @@ class Loader extends events.EventEmitter {
                 return { schema, context: { req }};
             })
         );
+        console.log(`GQL_URL_DIR: ${config.GQL_URL_DIR}`);
         app.use('/graphiql', graphiqlExpress({ endpointURL: '/' + config.GQL_URL_DIR } ));
         app.listen(config.APP_PORT, () => {
             self.emit('server.loaded');
@@ -46,3 +48,5 @@ class Loader extends events.EventEmitter {
         
     }
 }
+
+module.exports = new Loader();
