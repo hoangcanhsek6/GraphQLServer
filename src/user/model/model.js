@@ -5,4 +5,4 @@ const user = new mongoose.Schema({_id: { type: String} });
 
 user.plugin(passportLocalMongose);
 
-module.exports = mongoose.model('user', user);
+module.exports = mongoose.model('User', user);

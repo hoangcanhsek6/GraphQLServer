@@ -39,7 +39,7 @@ class Loader extends events.EventEmitter {
                 return { schema, context: { req }};
             })
         );
-        console.log(`GQL_URL_DIR: ${config.GQL_URL_DIR}`);
+        
         app.use('/graphiql', graphiqlExpress({ endpointURL: '/' + config.GQL_URL_DIR } ));
         app.listen(config.APP_PORT, () => {
             self.emit('server.loaded');
