@@ -18,7 +18,7 @@ class Loader extends events.EventEmitter {
 
     init() {
         const self = this;
-        mongoose.set('useCreateIndex', true);
+        mongoose.set('debug', true);
         mongoose.connect(config.DB_URL + '/' + config.DB_NAME, { useNewUrlParser: true });
         mongoose.Promise = Promise;
         app.use(bodyParser.json());

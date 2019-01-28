@@ -9,15 +9,15 @@ class UserController{
             context.req.body.username = params.username;
             context.req.body.password = params.password;
             const auth = new Promise(function(resolve, reject) {
-                passport.authenticate('local', function(error, user, info) {
+                passport.authenticate('local', function(err, user, info) {
                     if (err) {
                         reject(err);
                     }
                     if (info && info.name && info.name.indexOf('Error') !== -1) {
                         reject(new Error(info.message));
                     }
-                    if (!user) {
-                        reject(Error('No user returned'));
+                    if (!user) { 
+                        reject(Error(info.message));
                     }
                     context.req.logIn(user, function(err) {
                         if (err) {
